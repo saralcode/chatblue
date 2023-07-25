@@ -29,50 +29,48 @@ class _ChatPageState extends State<ChatPage> {
             const SizedBox(
               height: 100,
             ),
-            Expanded(
-              child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: handler.messages.length,
-                  padding: const EdgeInsets.all(10),
-                  itemBuilder: (context, index) {
-                    Message message = handler.messages.elementAt(index);
-                    return Column(
-                      crossAxisAlignment: message.isSent
-                          ? CrossAxisAlignment.end
-                          : CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          message.name,
-                          textScaleFactor: 1.1,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              left: message.isSent ? 40 : 0,
-                              right: message.isSent ? 0 : 40),
-                          child: Card(
-                              color: message.isSent
-                                  ? Colors.pink.shade800
-                                  : Colors.blue.shade700,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15.0, vertical: 10),
-                                child: Text(
-                                  message.text,
-                                  style: const TextStyle(color: Colors.white),
-                                  textScaleFactor: 1.1,
-                                ),
-                              )),
-                        ),
-                      ],
-                    );
-                  }),
-            ),
+            ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: handler.messages.length,
+                padding: const EdgeInsets.all(10),
+                itemBuilder: (context, index) {
+                  Message message = handler.messages.elementAt(index);
+                  return Column(
+                    crossAxisAlignment: message.isSent
+                        ? CrossAxisAlignment.end
+                        : CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        message.name,
+                        textScaleFactor: 1.1,
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                            left: message.isSent ? 40 : 0,
+                            right: message.isSent ? 0 : 40),
+                        child: Card(
+                            color: message.isSent
+                                ? Colors.pink.shade800
+                                : Colors.blue.shade700,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15.0, vertical: 10),
+                              child: Text(
+                                message.text,
+                                style: const TextStyle(color: Colors.white),
+                                textScaleFactor: 1.1,
+                              ),
+                            )),
+                      ),
+                    ],
+                  );
+                }),
           ],
         ),
         bottomSheet: Padding(

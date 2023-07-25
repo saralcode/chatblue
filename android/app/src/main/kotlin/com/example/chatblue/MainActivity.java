@@ -219,13 +219,7 @@ public class MainActivity extends FlutterActivity {
         }
 
 
-        public void close() {
-            try {
-                serverSocket.close();
-            } catch (IOException e) {
-                Log.e(TAG, "Could not close the connect socket", e);
-            }
-        }
+
     }
 
     // =====================================================================
@@ -264,14 +258,6 @@ public class MainActivity extends FlutterActivity {
                 Message message = Message.obtain();
                 message.what = STATE_CONNECTION_FAILED;
                 handler.sendMessage(message);
-            }
-        }
-
-        public void close() {
-            try {
-                socket.close();
-            } catch (IOException e) {
-                Log.e(TAG, "Could not close the connect socket", e);
             }
         }
 
@@ -346,16 +332,17 @@ public class MainActivity extends FlutterActivity {
                             break;
                         case "disconnect":
                             try {
+
                                 if(bluetoothServer!=null){
                                     Log.d("info", "Closing Bluetooth Server");
-                                    bluetoothServer.close();
+                                    bluetoothServer.interrupt();
                                     bluetoothServer=null;
                                 }
                                 if(bluetoothClient!=null){
-                                    Log.d("info", "Closing Bluetooth Client");
-                                    bluetoothClient.close();
+                                    bluetoothServer.interrupt();
                                     bluetoothClient=null;
                                 }
+                                sendReceive.interrupt();
 //                                Message message1 = Message.obtain();
 //                                message1.what = STATE_DISCONNECTED;
 //                                handler.sendMessage(message1);

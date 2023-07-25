@@ -45,14 +45,14 @@ class Handler extends GetxController {
   void disconnect(
       {bool isConnectedUser = false, bool isDisconnected = false}) async {
     if (!isDisconnected) {
-      // if (!isConnectedUser) {
-      //   Map data = {
-      //     "text": "",
-      //     "user": name,
-      //     "code": 0 // 1 = message, 0 = disconnect
-      //   };
-      //   await _methodChannel.invokeMethod("send-message", jsonEncode(data));
-      // }
+      if (!isConnectedUser) {
+        Map data = {
+          "text": "",
+          "user": name,
+          "code": 0 // 1 = message, 0 = disconnect
+        };
+        await _methodChannel.invokeMethod("send-message", jsonEncode(data));
+      }
       _methodChannel.invokeMethod("disconnect");
     }
     isConnected.value = false;
@@ -187,6 +187,7 @@ class Handler extends GetxController {
   }
 
   Future<void> connect(String address) async {
+    _methodChannel.invokeMethod("disconnect");
     bool info = await _methodChannel.invokeMethod("connect-client", address);
     log("$info");
   }
